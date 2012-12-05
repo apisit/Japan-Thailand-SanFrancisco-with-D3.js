@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title></title>
+    <script type="text/javascript" src="d3.v2.js"></script>
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui/jquery-ui.min.js"></script>
+    <style type="text/css">
+
+@import url("../../lib/jquery-ui/jquery-ui.css");
+
+body, .ui-widget {
+  font: 14px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-weight: 300;
+margin: 0;
+}
+
+svg {
+  width: 960px;
+  height: 500px;
+  background: #ffffff;
+}
+
+line {
+  stroke: brown;
+  stroke-dasharray: 4,2;
+}
+
+path {
+  fill: #ccc;
+  stroke: #fff;
+}
+text {
+  font-size: 24px;
+font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-weight: 300;
+}
+
+div {
+  width: 960px;
+}
+
+    </style>
+  </head>
+  <body>
+    
+    <div id="map" class="map"></div>
+
+ <script>
+ var width = 960,
+    height = 500,
+    centered;
+
+
+    var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("id", "states");
+
+    var g = svg.append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+  .append("g")
+    .attr("id", "states");
+
+
+    var xym = d3.geo.albers();
+    var path = d3.geo.path().projection(xym);
+
+    xym.origin([139.334468,35.580826])
+    xym.translate([350, 300])
+    xym.parallels([24.6, 43.6])
+    xym.scale(2000);
+
+
+
+
+       d3.json("japan.json", function(data) {
+
+        svg.selectAll("path").data(data.features)
+        .enter().append("path")
+        .attr("d", path)
+        .style("fill", function() { return "#44aaee" })
+        .on("mouseover", function(e){d3.select(this).style("fill", "#5522aa")})
+        .on("mouseout", function(e){d3.select(this).style("fill", "#44aaee")})
+        .on("click", click);
+
+
+//var d = d3.selectAll("#states");
+      svg.append("circle")
+            .attr("r", 0)
+            .style("fill","#FFCC00")
+            .attr("transform", "translate(" + xym(xym.origin()).join(",") + ")")
+            .transition()
+            .duration(1000)
+            .attr("r",30)
+            .ease("elastic");
+
+      svg.append("text")
+            .attr("class","text")
+            .style("opacity",0)
+             .attr("transform", "translate(" + xym(xym.origin()).join(",") + ")")
+            .text("Kanagawa")
+            .transition()
+            .duration(1000)
+            .delay(200)
+            .style("opacity",1);
+
+      var japan= svg.selectAll("path").data(data.features);
+      // japan.transition().attr("transform","translate("+ xym.origin()[0]+50  +","+ xym.origin()[1]+50 + ")");
+      //japan.transition().attr("transform","scale(1.5)");
+
+
+      });
+
+function click(d) {
+  var x = 0,
+      y = 0,
+      k = 1;
+
+  if (d && centered !== d) {
+    var centroid = path.centroid(d);
+    x = -centroid[0];
+    y = -centroid[1];
+    k = 4;
+    centered = d;
+  } else {
+    centered = null;
+  }
+
+  g.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
+
+  g.transition()
+      .duration(1000)
+      .attr("transform", "scale(" + k + ")translate(" + x + "," + y + ")")
+      .style("stroke-width", 1.5 / k + "px");
+}
+
+
+
+
+  </script>
+
+   
+  </body>
+</html>
