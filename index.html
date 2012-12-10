@@ -69,15 +69,15 @@ div {
     var xym = d3.geo.albers();
     var path = d3.geo.path().projection(xym);
 
-    xym.origin([139.334468,35.580826])
+    xym.origin([100.931293,13.191816])
     xym.translate([350, 300])
     xym.parallels([24.6, 43.6])
-    xym.scale(2000);
+    xym.scale(7000);
 
 
 
 
-       d3.json("japan.json", function(data) {
+       d3.json("thailand.json", function(data) {
 
         svg.selectAll("path").data(data.features)
         .enter().append("path")
@@ -95,14 +95,14 @@ div {
             .attr("transform", "translate(" + xym(xym.origin()).join(",") + ")")
             .transition()
             .duration(1000)
-            .attr("r",30)
+            .attr("r",5)
             .ease("elastic");
 
       svg.append("text")
             .attr("class","text")
             .style("opacity",0)
              .attr("transform", "translate(" + xym(xym.origin()).join(",") + ")")
-            .text("Kanagawa")
+            .text("Sriracha")
             .transition()
             .duration(1000)
             .delay(200)

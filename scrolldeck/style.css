@@ -1,0 +1,180 @@
+/*
+Plugin: jQuery Parallax
+Version 1.1
+Author: Ian Lunn
+Author URL: http://www.ianlunn.co.uk/
+Plugin URL: http://www.ianlunn.co.uk/plugins/jquery-parallax/
+
+License: http://creativecommons.org/licenses/by-sa/3.0/ (Attribution Share Alike). Please attribute work to Ian Lunn simply by leaving these comments in the source code or if you'd prefer, place a link on your website to http://www.ianlunn.co.uk/.
+*/
+
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	/*font-family: 'Lora', serif;
+	font-family: 'PT Sans', sans-serif;
+	letter-spacing: 1px
+	
+	font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif; 
+*/
+font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-weight:300;
+	 font-size: 18px;
+	 color:#333;
+	 margin: 0;
+}
+
+
+p{
+font-size: 1.25em;
+
+}
+
+
+h1{
+	font: inherit;
+	font-size: 2em;
+}
+h2{
+font-size: 1.75em;
+}
+
+img{
+	border: 0;
+}
+
+
+
+#nav{
+	list-style: none;
+	position: fixed;
+	right: 20px;
+	z-index: 999;
+}
+
+#nav li{
+	margin: 0 0 15px 0;	
+}
+
+#header, #intro, #second{
+	width: 100%;
+}
+
+.bigtitle{
+font-size: 2em;
+
+}
+
+#intro{
+	background:url(../assets/Wood_floor_by_gnrbishop.jpg) repeat;
+	height: 800px;
+	margin: 0 auto;
+	padding: 0 0 0 0;
+padding-top: 100px;
+}
+
+#second{
+	
+	background-color:white;
+	color: white;
+	height: 800px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 0;
+	padding-top: 60px;
+}
+
+
+
+#third{
+	
+	color: white;
+	background-color: white;
+	height: 1500px;
+	padding: 0 0 0 0;	
+	margin: 0;
+}
+
+#fifth{
+	background: #ccc;
+	height: 800px;
+	margin: 0 auto;
+	padding: 40px 0 0 0;
+}
+
+.story{
+	margin: 0 auto;
+	padding-top: 0px;
+	min-width: 980px;
+	overflow: hidden;
+	width: 980px;
+}
+
+.story .float-left, .story .float-right{
+	padding: 10% 0 0 0;
+	position: relative;
+
+}
+
+.slide {
+	width: 100%;
+}
+
+#nav li a {
+	display: block;
+	width: 10px;
+	height: 10px;
+	border-radius: 10px;
+	background-color: #FFFFFF;
+	border: solid 2px #333;
+}
+
+#nav li a.current {
+	background-color: red;
+}
+
+.or-block {
+	display: block;
+}
+
+/*D3 CSS*/
+svg {
+  width: 980px;
+  height: 800px;
+}
+
+line {
+  stroke: brown;
+  stroke-dasharray: 4,2;
+}
+
+path {
+  fill: #ccc;
+  stroke: #fff;
+}
+text {
+ font-family: inherit;
+color:#333333;
+}
+
+#map{
+position: absolute;
+margin-left: 50px;
+margin-top:-400px;
+
+}
+
+
+#thailandmap{
+position: absolute;
+margin-left: 0px;
+margin-top:0px;
+/*position: fixed; top: 0px;*/
+}
+
+.fixed{
+	position: fixed;
+	top:0px;
+}
+

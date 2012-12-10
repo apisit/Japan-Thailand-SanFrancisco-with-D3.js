@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" src="d3.v2.js"></script>
+    <script type="text/javascript" src="d3.geo.js"></script>
+    <link type="text/css" rel="stylesheet" href="colorbrewer/colorbrewer.css"/>
+    <style type="text/css">
+body {
+  overflow: hidden;
+  margin: 0;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica;
+}
+
+#chart, #header, #footer {
+  position: absolute;
+  top: 0;
+}
+
+#header, #footer {
+  z-index: 1;
+  display: block;
+  font-size: 36px;
+  font-weight: 300;
+  text-shadow: 0 1px 0 #fff;
+}
+
+#header.inverted, #footer.inverted {
+  color: #fff;
+  text-shadow: 0 1px 4px #000;
+}
+
+#header {
+  top: 80px;
+  left: 140px;
+  width: 1000px;
+}
+
+#footer {
+  top: 680px;
+  right: 140px;
+  text-align: right;
+}
+
+rect {
+  fill: none;
+  pointer-events: all;
+}
+
+pre {
+  font-size: 18px;
+}
+
+line {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.string, .regexp {
+  color: #f39;
+}
+
+.keyword {
+  color: #00c;
+}
+
+.comment {
+  color: #777;
+  font-style: oblique;
+}
+
+.number {
+  color: #369;
+}
+
+.class, .special {
+  color: #1181B8;
+}
+
+a:link, a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #666;
+}
+
+
+
+.hint {
+  position: absolute;
+  right: 0;
+  width: 1280px;
+  font-size: 12px;
+  color: #999;
+}
+svg {
+  width: 1280px;
+  height: 800px;
+  pointer-events: all;
+}
+
+circle {
+  fill: #dbe4f0;
+}
+
+path {
+  fill: #aaa;
+  stroke: #fff;
+}
+
+.focus{
+fill:#FFCC00;
+#states .active {
+  fill: steelblue;
+}
+}
+
+    </style>
+  </head>
+  <body>
+    <div id="body">
+      <div id="footer">
+     
+        <div class="hint">drag to rotate the origin</div>
+       
+      </div>
+    </div>
+    <script type="text/javascript">
+
+var focusCircle;
+var japan;
+var feature;
+var zoomScale=200;
+var width = 1280,
+    height = 800,
+    centered;
+
+var projection = d3.geo.azimuthal()
+    .scale(zoomScale)
+    .origin([139.334468,35.580826])
+    .mode("orthographic")
+    .translate([640, 400]);
+
+var circle = d3.geo.greatCircle()
+    .origin(projection.origin());
+
+// TODO fix d3.geo.azimuthal to be consistent with scale
+var scale = {
+  orthographic: 380,
+  stereographic: 380,
+  gnomonic: 380,
+  equidistant: 380 / Math.PI * 2,
+  equalarea: 380 / Math.SQRT2
+};
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("#body").append("svg:svg")
+    .attr("width", 1280)
+    .attr("height", 800)
+
+svg.append("rect")
+    .attr("class", "background")
+    .attr("width", width)
+    .attr("height", height)
+    .on("click", click);
+
+var g = svg.append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+  .append("g")
+    .attr("id", "states");
+
+d3.json("world-countries.json", function(data) {
+  feature = svg.selectAll("path")
+      .data(data.features)
+     .enter().append("svg:path")
+     .attr("class",function(c) { return c.id;})
+      .attr("d", clip)
+       .on("click", click);
+
+japan = svg.selectAll(".JPN");
+var japanData= japan.data()[0];
+//click(japanData);
+//this.click(japan.attr("path"));
+//focusCircle.attr("class","JPN focus");  
+
+
+svg.append("circle")
+ .attr("r", 0)
+.attr("class","circle")
+            .style("opacity","1")
+            .style("fill","#44aaee")
+            .attr("transform", "translate(" + projection(projection.origin()).join(",") + ")")
+            .transition()
+            .duration(1000)
+            .attr("r",10)
+            .ease("elastic");
+
+
+
+});
+
+
+function click(d) {
+console.log(d);
+  var x = 0,
+      y = 0,
+      k = 1;
+
+  if (d && centered !== d) {
+    var centroid = path.centroid(d);
+    x = -centroid[0];
+    y = -centroid[1];
+    k = 4;
+    centered = d;
+  } else {
+    centered = null;
+  }
+
+
+  g.selectAll("path")
+      .classed("active", centered && function(d) { return d === centered; });
+
+ feature.transition()
+      .duration(1000)
+      .attr("transform", "scale(" + k + ")translate(" + (x+160) + "," + (y+100) + ")")
+      .style("stroke-width", 1.5 / k + "px");
+}
+
+
+d3.select(window)
+    .on("mousemove", mousemove)
+    .on("mouseup", mouseup);
+
+d3.select("select").on("change", function() {
+  projection.mode(this.value).scale(scale[this.value]);
+  refresh(750);
+});
+
+
+var m0,
+    o0;
+
+function mousedown() {
+  m0 = [d3.event.pageX, d3.event.pageY];
+  o0 = projection.origin();
+  d3.event.preventDefault();
+
+  focusCircle = svg.selectAll(".circle")
+
+}
+
+function mousemove() {
+  if (m0) {
+    var m1 = [d3.event.pageX, d3.event.pageY],
+        o1 = [o0[0] + (m0[0] - m1[0]) / 8, o0[1] + (m1[1] - m0[1]) / 8];
+    projection.origin(o1);
+
+    circle.origin(o1)
+  
+    refresh();
+  focusCircle.attr("transform", "translate(" + projection(projection.origin()).join(",") + ")");
+  
+  }
+}
+
+function mouseup() {
+  if (m0) {
+    mousemove();
+    m0 = null;
+  }
+}
+
+function refresh(duration) {
+  (duration ? feature.transition().duration(duration) : feature).attr("d", clip);
+
+}
+
+function clip(d) {
+  return path(circle.clip(d));
+}
+
+    </script>
+  </body>
+</html>
