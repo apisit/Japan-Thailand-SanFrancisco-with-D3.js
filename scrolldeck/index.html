@@ -221,22 +221,25 @@ pinSriracha=svg.selectAll(".pinSriracha");
 			return p.properties.id;
         })
 		.style("fill", function(p) { 
-			if (p.properties.name=="Kanagawa")
+			if (p.properties.name=="ChonBuri")
 				return mouseOverColor;
 			else
         		return provinceColor 
         })
         .on("mouseover", function(e){
+        
+
         	d3.select(this).style("fill", mouseOverColor)
 			//console.log(d3.mouse(this));
 			var mousePos=d3.mouse(this);
 
         	tooltipName(e.properties.name,mousePos);
 			tooltip.style("visibility", "visible");
+		
         })
         .on("mouseout", function(e){
 
-        	d3.select(this).style("fill", provinceColor)
+        	d3.select(this).style("fill", e.properties.name=="ChonBuri"?mouseOverColor:provinceColor)
         	tooltip.style("visibility", "hidden");
         })
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");});
@@ -328,7 +331,7 @@ var mouseOverColor="red";
         })
         .on("mouseout", function(e){
 
-        	d3.select(this).style("fill", provinceColor)
+        	d3.select(this).style("fill", e.properties.name=="Kanagawa"?mouseOverColor:provinceColor)
         	tooltip.style("visibility", "hidden");
         })
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");});

@@ -76,7 +76,7 @@ font-size: 2em;
 }
 
 #japan{
-	background:url(../assets/japanbg.jpg) fixed no-repeat;
+	/*background:url(../assets/japanbg.jpg) fixed no-repeat;*/
 	color: white;
 	height: 1200px;
 	margin: 0 auto;
