@@ -34,6 +34,13 @@
 $(document).ready(function(){
 	//$('#nav').localScroll(800);
 	
+	// var scrollorama = $.scrollorama({
+ //        blocks:'.slide'
+ //    });
+ //    scrollorama.animate('#parallaxTitle',{ delay: 0, duration: 500, property:'top', start:20, end:800 });
+ //    scrollorama.animate('#parallaxTitle',{ delay: 0, duration: 500, property:'opacity', end:0 });
+
+
 	RepositionNav();
 	
 	$(window).resize(function(){
@@ -45,15 +52,15 @@ $(document).ready(function(){
 	//adjuster - y position to start from
 	//inertia - speed to move relative to vertical scroll. Example: 0.1 is one tenth the speed of scrolling, 2 is twice the speed of scrolling
 	//outerHeight (true/false) - Whether or not jQuery should use it's outerHeight option to determine when a section is in the viewport
+
 	$('#intro').parallax("50%", 0, 0.1, true);
-	$('#second').parallax("50%", 0, 0.1, true);
-	$('.thailandmap').parallax("50%", 2500, 0.4, true);
-	$('#third').parallax("50%", 2750, 0.3, true);
+	$('#japan').parallax("50%", 200, 0.1, true);
 	
+	$('#third').parallax("50%", 2750, 0.3, true);
+
 	var deck = new $.scrolldeck({
 		slides: '.slide',
 		buttons: '#nav li a',
-		 duration: 600,
 		easing: 'easeInOutExpo'
 	});
 
@@ -70,39 +77,49 @@ $(document).ready(function(){
 <body>
 	<ul id="nav">
 		<li><a href="#intro" title="Next Section"></a></li>
-	    <li><a href="#second" title="Next Section"></a></li>
+	    <li><a href="#japan" title="Next Section"></a></li>
 	    <li><a href="#third" title="Next Section"></a></li>
 	   
 	</ul>
 	
 	<div id="intro" class="slide">
+
 		<div  class="story">
-		<div class="bigtitle"><h1>How Ayumi and I met.</h1></div>
+		
+		<div  class="bigtitle"><h1>Big title here.</h1></div>
 		<p>did you know? you can use keyboard ↓ and ↑ to scroll through this story.</p>
+
 		</div> <!--.story-->
+	
 	</div> <!--#intro-->
 	
 
-	<div id="second" class="slide">
+	<div id="japan" class="slide">
+		
+		<div class="row">
+			
+		<div id="map" class="map" ></div>
+		</div><!--#row-->
+
 		<div class="row">
 		<div  class="story">
-	    	<div class="six columns">
-			<span class="or-block animate-in" data-build="1" data-animation="fly-in-left"><h1>Japan</h1></span>
-	        <p class="or-block animate-in" data-build="2" data-animation="fly-in-right">Japan i/dʒəˈpæn/ (Japanese: 日本 Nihon or Nippon; formally 日本国  Nippon-koku or Nihon-koku, literally "[the] State of Japan") is an island nation in East Asia. Located in the Pacific Ocean, it lies to the east of the Sea of Japan, China, North Korea, South Korea and Russia, stretching from the Sea of Okhotsk in the north to the East China Sea and Taiwan in the south. The characters that make up Japan's name mean "sun-origin", which is why Japan is sometimes referred to as the "Land of the Rising Sun".</p>
-	        </div>
 
+	    	<div class="six columns">
+			<!-- <span class="or-block animate-in" data-build="1" data-animation="fly-in-left"> --><h1>Japan</h1><!-- </span> -->
+	        <p >Japan i/dʒəˈpæn/ (Japanese: 日本 Nihon or Nippon; formally 日本国  Nippon-koku or Nihon-koku, literally "[the] State of Japan") is an island nation in East Asia. Located in the Pacific Ocean, it lies to the east of the Sea of Japan, China, North Korea, South Korea and Russia, stretching from the Sea of Okhotsk in the north to the East China Sea and Taiwan in the south. The characters that make up Japan's name mean "sun-origin", which is why Japan is sometimes referred to as the "Land of the Rising Sun".</p>
+	        </div>
+			
 	    </div> <!--.story-->
 		</div><!--#row-->
-		<div class="row">
-			<span class="or-block animate-in">
-		<div id="map" class="map" ></div>
-		</span>
-		</div><!--#row-->
+		
+
 	</div> <!--#second-->
 	
 	<div id="third" class="slide">
 		  
 		<div class="story">
+			
+
 			 <div class="row">
 			<div class="six columns">
 				<span class="or-block animate-in">
@@ -253,7 +270,7 @@ function renderJapanMap(){
 
 
  var width = 900,
-    height = 800,
+    height = 1000,
     centered;
 
 
@@ -266,7 +283,7 @@ var pinKanagawa;
     var svg = d3.select(".map").append("svg")
     .attr("width", width)
     .attr("height", height)
-    .attr("id", "japan");
+   
 
   
 
@@ -274,7 +291,7 @@ var pinKanagawa;
     var path = d3.geo.path().projection(xym);
 
     xym.origin([139.334468,35.580826])
-    xym.translate([700, 420])
+    xym.translate([700, 550])
     xym.parallels([24.6, 43.6])
     xym.scale(3000);
 

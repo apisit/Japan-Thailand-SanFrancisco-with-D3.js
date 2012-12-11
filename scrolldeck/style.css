@@ -67,22 +67,23 @@ font-size: 2em;
 }
 
 #intro{
-	background:url(../assets/Wood_floor_by_gnrbishop.jpg) repeat;
+	/*background:url(../assets/Wood_floor_by_gnrbishop.jpg) repeat;*/
 	height: 800px;
 	margin: 0 auto;
 	padding: 0 0 0 0;
-padding-top: 100px;
+	padding-top: 100px;
+	padding-left: 100px;
 }
 
-#second{
-	
-	background-color:white;
+#japan{
+	background:url(../assets/japanbg.jpg) fixed no-repeat;
 	color: white;
-	height: 800px;
+	height: 1200px;
 	margin: 0 auto;
 	overflow: hidden;
 	padding: 0;
 	padding-top: 60px;
+
 }
 
 
@@ -141,7 +142,8 @@ padding-top: 100px;
 /*D3 CSS*/
 svg {
   width: 980px;
-  height: 800px;
+  height: 1000px;
+
 }
 
 line {
@@ -160,8 +162,8 @@ color:#333333;
 
 #map{
 position: absolute;
-margin-left: 50px;
-margin-top:-400px;
+margin-left: 0px;
+margin-top:-60px;
 
 }
 
@@ -173,8 +175,20 @@ margin-top:0px;
 /*position: fixed; top: 0px;*/
 }
 
+
 .fixed{
 	position: fixed;
 	top:0px;
+}
+
+#examples-parallax {
+	overflow: hidden;
+}
+
+#parallaxTitle {
+
+	position: absolute;
+	opacity: 1;
+	text-shadow: none;
 }
 
