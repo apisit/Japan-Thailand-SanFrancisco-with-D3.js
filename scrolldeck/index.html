@@ -19,9 +19,9 @@
 <script src="js/jquery.scrolldeck.js"></script>
 <script src="js/waypoints.min.js"></script>
 
- <script type="text/javascript" src="../d3.v2.js"></script>
+  <script type="text/javascript" src="../d3.v2.js"></script>
 
-  
+
 
   <script src="../foundation/js/modernizr.foundation.js"></script>
 
@@ -68,8 +68,10 @@ $(document).ready(function(){
  
 	//$("#thailandmap").attr("class","thailandmap fixed");
   });
+  loadWordMap();
   renderJapanMap();
   renderThailandMap();
+  
 })
 </script>
 </head>
@@ -83,14 +85,16 @@ $(document).ready(function(){
 	</ul>
 	
 	<div id="intro" class="slide">
-
 		<div  class="story">
 		
-		<div  class="bigtitle"><h1>Big title here.</h1></div>
-		<p>did you know? you can use keyboard ↓ and ↑ to scroll through this story.</p>
-
+			<div  id="bigtitle"><h1>Big title here.</h1></div>
+			<div id="subtitle">did you know? you can use keyboard ↓ and ↑ to scroll through this story.</div>
+		 </div> <!-- .six columns -->
+		
 		</div> <!--.story-->
-	
+		
+		<div id="worldmap" class="worldmap" ></div>
+		
 	</div> <!--#intro-->
 	
 
@@ -404,6 +408,177 @@ pinKanagawa=svg.selectAll(".pin");
 
 
 }
+
+
+function loadWordMap(){
+
+
+ 	var width = 600,
+    height = 1000,
+    centered;
+    var plainColor="#ddd";
+	var mouseOverColor="red";
+
+    var svg = d3.select(".worldmap").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .on('mousedown', mousedown);
+   
+	var projection=d3.geo.azimuthal();
+	projection
+	.mode("orthographic")
+	.origin([139.334468,35.580826])
+	.scale(300).translate([350,330]);
+
+	var circle = d3.geo.greatCircle()
+    .origin(projection.origin());
+
+// TODO fix d3.geo.azimuthal to be consistent with scale
+var scale = {
+  orthographic: 380,
+  stereographic: 380,
+  gnomonic: 380,
+  equidistant: 380 / Math.PI * 2,
+  equalarea: 380 / Math.SQRT2
+};
+
+
+
+  	var path=d3.geo.path().projection(projection);
+
+	d3.json("../world-countries.json", function(collection) {
+		  	feature=d3.select("svg").selectAll("path")
+		    .data(collection.features)
+		   	.enter().append("path")
+		    .attr("d", path)
+		    .attr("id",function(p){
+					return p.id;
+		    })
+		    .style("fill", function(p) { 
+					if (p.properties.name=="Japan" || p.properties.name=="Thailand" || p.id=="USA")
+						return mouseOverColor;
+					else
+		        		return plainColor 
+		     })
+		    .on("mouseover", function(e){
+		        	d3.select(this).style("fill", mouseOverColor)
+					var mousePos=d3.mouse(this);
+
+		        	tooltipName(e.properties.name,mousePos);
+					tooltip.style("visibility", "visible");
+					
+		    })
+		    .on("mouseout", function(e){
+
+		        	d3.select(this).style("fill", e.properties.name=="Kanagawa"?mouseOverColor:plainColor)
+		        	tooltip.style("visibility", "hidden");
+		    })
+		    .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");});
+	startAnimation();	
+});
+
+var tourList=[];
+var sf =[-122.4183,37.7750];	
+var jp=[139.334468,35.580826];
+tourList.push(sf);
+tourList.push(jp);
+var tourIndex=0;
+// var tour =function(){
+
+// 	d3.transition().duration(1).delay(1000).each("start",function(){
+
+
+// 	 //o0 =projection.origin(tourList[tourIndex]);
+//   //  circle.origin(tourList[tourIndex]);
+//    /// refresh();
+  
+//     tourIndex++;
+//     if (tourIndex==tourList.length)
+//     	tourIndex=0;
+//     console.log(tourIndex);
+// 	})
+// 	.transition().each("end",tour);
+// };
+
+
+function startAnimation() {
+  done = false;
+  d3.timer(function() {
+    var origin = projection.origin();
+   origin =[origin[0] +0.16, origin[1] ];
+    projection.origin(origin);
+    circle.origin(origin);
+    refresh();
+    //tourIndex++;
+        if (tourIndex==tourList.length)
+    	tourIndex=0;
+   		 console.log(tourIndex);
+  });
+}
+
+
+//d3.timer(move(),1000);
+
+d3.select(window).on('mousemove', mousemove)
+                 .on('mouseup', mouseup);
+var m0,
+    o0;
+
+function mousedown() {
+  m0 = [d3.event.pageX, d3.event.pageY];
+  console.log(m0);
+  o0 = projection.origin();
+  d3.event.preventDefault();
+
+}
+
+
+
+function mousemove() {
+  if (m0) {
+    var m1 = [d3.event.pageX, d3.event.pageY],
+        o1 = [o0[0] + (m0[0] - m1[0]) / 8, o0[1] + (m1[1] - m0[1]) / 8];
+         console.log(m1);
+    projection.origin(o1);
+    circle.origin(o1)
+    refresh();
+  }
+}
+
+function mouseup() {
+  if (m0) {
+    mousemove();
+    m0 = null;
+  }
+}
+
+function refresh(duration) {
+  (duration ? feature.transition().duration(duration) : feature).attr("d", clip);
+}
+
+function clip(d) {
+  return path(circle.clip(d));
+}
+
+
+var tooltip;
+function tooltipName(text,pos){
+
+	tooltip = d3.select("body")
+	.append("div")
+	.attr("class","alert-box alert")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")
+	.text(text);
+}
+
+
+
+
+
+}
+
 
 
 

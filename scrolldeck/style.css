@@ -61,9 +61,13 @@ img{
 	width: 100%;
 }
 
-.bigtitle{
+#bigtitle{
 font-size: 2em;
 
+}
+#subtitle{
+	font-size: 1.25em;
+	width: 300px;
 }
 
 #intro{
@@ -72,7 +76,7 @@ font-size: 2em;
 	margin: 0 auto;
 	padding: 0 0 0 0;
 	padding-top: 100px;
-	padding-left: 100px;
+	padding-left: 50px;
 }
 
 #japan{
@@ -110,6 +114,7 @@ font-size: 2em;
 	min-width: 980px;
 	overflow: hidden;
 	width: 980px;
+
 }
 
 .story .float-left, .story .float-right{
@@ -172,7 +177,16 @@ margin-top:-60px;
 position: absolute;
 margin-left: 0px;
 margin-top:0px;
+
 /*position: fixed; top: 0px;*/
+}
+#worldmap{
+
+position: absolute;
+margin-left: 0px;
+margin-top:0px;
+top:0;
+left:550px;
 }
 
 
