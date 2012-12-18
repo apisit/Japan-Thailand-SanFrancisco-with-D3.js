@@ -145,11 +145,11 @@ font-size: 2em;
 }
 
 /*D3 CSS*/
-svg {
+/*svg {
   width: 980px;
   height: 1000px;
 
-}
+}*/
 
 line {
   stroke: brown;
@@ -185,8 +185,9 @@ margin-top:0px;
 position: absolute;
 margin-left: 0px;
 margin-top:0px;
-top:0;
+top:20px;
 left:550px;
+
 }
 
 
