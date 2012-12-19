@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Where?</title>
+<title>Data Visualization</title>
 <!--<link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>-->
 <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
@@ -89,8 +89,10 @@ $(document).ready(function(){
 		
 		<div  class="story">
 		
-			<div  class="bigtitle"><h1>Something...</h1></div>
-			<p>Use keyboard ↓ and ↑ to scroll through this story and How about rotate that spinning globe,yeah?</p>
+			<div  class="bigtitle"><h1>Data Visualization.</h1></div>
+			<p>Data visualization is the study of the visual representation of data, meaning "information that has been abstracted in some schematic form, including attributes or variables for the units of information" - <a href="http://www.math.yorku.ca/SCS/Gallery/milestone/milestone.pdf">Michael Friendly.</a></p>
+			<p>Use keyboard ↓ and ↑ to scroll through this story.</p>
+			
 		 </div> <!-- .six columns -->
 		
 		</div> <!--.story-->
@@ -143,6 +145,7 @@ $(document).ready(function(){
 	    	<div class="five columns">
 			<span class="or-block animate-in" data-build="1" data-animation="fly-in-left"><div class="bigtitle"><h1>Thailand</h1></div></span>
 	        <p class="or-block animate-in" data-build="2" data-animation="fly-in-right">Thailand ( /ˈtaɪlænd/ ty-land or /ˈtaɪlənd/ ty-lənd;[8] Thai: ประเทศไทย, RTGS: Prathet Thai), officially the Kingdom of Thailand (Thai: ราชอาณาจักรไทย, RTGS: Ratcha Anachak Thai; IPA: [râːt.tɕʰā ʔāːnāːtɕàk tʰāj] ( listen)), formerly known as Siam (Thai: สยาม; RTGS: Sayam), is a country located at the centre of the Indochina peninsula in Southeast Asia. It is bordered to the north by Burma and Laos, to the east by Laos and Cambodia, to the south by the Gulf of Thailand and Malaysia, and to the west by the Andaman Sea and the southern extremity of Burma. Its maritime boundaries include Vietnam in the Gulf of Thailand to the southeast, and Indonesia and India in the Andaman Sea to the southwest.</p>
+	        <p>Data from http://maps.worldbank.org/overlays/4242</p>
 	        </div>
 	     
 	         </div><!--#row-->
@@ -159,8 +162,8 @@ $(document).ready(function(){
 		  
 		<div class="story">
 			<div class="row">
-			<div class="six columns"></div>
-			<div class="six columns"><div class="bigtitle"><h1>San Francisco</h1></div><p>San Francisco (/ˌsæn frənˈsɪskoʊ/), officially the City and County of San Francisco, is the leading financial and cultural center of Northern California and the San Francisco Bay Area.
+			<div class="five columns"></div>
+			<div class="seven columns"><div class="bigtitle"><h1>San Francisco,CA</h1></div><p>San Francisco (/ˌsæn frənˈsɪskoʊ/), officially the City and County of San Francisco, is the leading financial and cultural center of Northern California and the San Francisco Bay Area.
 			</p></div>
 </div> <!-- row -->
 			<div id="sfmap" class="sfmap" ></div>
@@ -228,8 +231,17 @@ pinSriracha=svg.selectAll(".pinSriracha");
 		.each("end",animateDrop);
 
 }
-
- d3.json("../thailandWithName.json", function(data) {
+function getColor(d) {
+    return d > 1000 ? 'rgb(8,48,107)' :
+           d > 500  ? 'rgb(8,81,156)' :
+           d > 200  ? 'rgb(33,113,181)' :
+           d > 100  ? 'rgb(66,146,198)' :
+           d > 50   ? 'rgb(107,174,214)' :
+           d > 20   ? 'rgb(158,202,225)' :
+           d > 10   ? 'rgb(198,219,239)' :
+                      'rgb(222,235,247)';
+};
+ d3.json("../thailandwithdensity.json", function(data) {
 
 
         svg.selectAll("path").data(data.features)
@@ -237,18 +249,24 @@ pinSriracha=svg.selectAll(".pinSriracha");
         .attr("d", thailandpath)
         .attr("class","province")
         .attr("id",function(p){
-			return p.properties.id;
+			return p.properties.name.toLowerCase();
         })
 		.style("fill", function(p) { 
-			if (p.properties.name=="ChonBuri")
+
+			console.log(p.properties.p);
+			return getColor(p.properties.p);
+
+			if (p.properties.name.toLowerCase()=="ChonBuri".toLowerCase())
 				return mouseOverColor;
 			else
         		return provinceColor 
+
+
         })
         .on("mouseover", function(e){
         
 
-        	d3.select(this).style("fill", mouseOverColor)
+        	//d3.select(this).style("fill", mouseOverColor)
 			//console.log(d3.mouse(this));
 			var mousePos=d3.mouse(this);
 
@@ -258,14 +276,14 @@ pinSriracha=svg.selectAll(".pinSriracha");
         })
         .on("mouseout", function(e){
 
-        	d3.select(this).style("fill", e.properties.name=="ChonBuri"?mouseOverColor:provinceColor)
+        	//d3.select(this).style("fill", e.properties.name=="ChonBuri"?mouseOverColor:provinceColor)
         	tooltip.style("visibility", "hidden");
         })
         .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");});
        
 	
 
-	svg.append("svg:image")
+		svg.append("svg:image")
             .attr("class","pinSriracha")
             .attr("transform", "translate(" + (thailandxym(thailandxym.origin())[0]-22) +"," + (thailandxym(thailandxym.origin())[1]-500) + ")")
             .attr("width", 44)
@@ -279,9 +297,19 @@ pinSriracha=svg.selectAll(".pinSriracha");
             .each("end",animateLift);
 
 
- })
+		// d3.csv("../thailandpopulation.csv", function(csv) {
+  //     	   csv = csv.filter(function(row) {
+      	   	
+  //     	   	var province= row["Adm1"].replace(" ","").toLowerCase();
+  //     	   	console.log(row["PopDensity"] + " " +province);
+  //     	   	d3.select("#"+province ).style("fill","#FFCC00");
+  //     	   });
+   			 
+  //       });
+
+ });
 		 
-      
+
 
 
 
