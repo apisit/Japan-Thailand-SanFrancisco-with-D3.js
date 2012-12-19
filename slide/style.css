@@ -61,7 +61,7 @@ img{
 	width: 100%;
 }
 
-#bigtitle{
+.bigtitle{
 font-size: 2em;
 
 }
@@ -73,6 +73,15 @@ font-size: 2em;
 
 #intro{
 	/*background:url(../assets/Wood_floor_by_gnrbishop.jpg) repeat;*/
+	height: 800px;
+	margin: 0 auto;
+	padding: 0 0 0 0;
+	padding-top: 100px;
+	padding-left: 50px;
+}
+
+#world{
+
 	height: 800px;
 	margin: 0 auto;
 	padding: 0 0 0 0;
@@ -93,21 +102,17 @@ font-size: 2em;
 
 
 
-#third{
+#thailand{
 	
 	color: white;
 	background-color: white;
-	height: 1500px;
+	height: 800px;
 	padding: 0 0 0 0;	
+	padding-top: 50px;
 	margin: 0;
 }
 
-#fifth{
-	background: #ccc;
-	height: 800px;
-	margin: 0 auto;
-	padding: 40px 0 0 0;
-}
+
 
 .story{
 	margin: 0 auto;
@@ -178,6 +183,7 @@ margin-top:-60px;
 position: absolute;
 margin-left: 0px;
 margin-top:0px;
+top: 0px;
 
 /*position: fixed; top: 0px;*/
 }
@@ -190,8 +196,16 @@ top:20px;
 left:550px;
 
 }
+#sf{
 
-
+position: absolute;
+margin-left: 0px;
+padding-top: 100px;
+}
+#sfmap{
+position: absolute;
+top: 0px;
+}
 .fixed{
 	position: fixed;
 	top:0px;

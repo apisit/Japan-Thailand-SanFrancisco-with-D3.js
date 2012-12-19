@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>It started with one chocolate chip cookie.</title>
+<title>Where?</title>
 <!--<link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>-->
 <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 
@@ -71,7 +71,7 @@ $(document).ready(function(){
   loadWordMap();
   renderJapanMap();
   renderThailandMap();
-  
+  loadSFmap();
 })
 </script>
 </head>
@@ -79,17 +79,18 @@ $(document).ready(function(){
 <body>
 	<ul id="nav">
 		<li><a href="#intro" title="Next Section"></a></li>
+		 <li><a href="#world" title="Next Section"></a></li>
 	    <li><a href="#japan" title="Next Section"></a></li>
-	    <li><a href="#third" title="Next Section"></a></li>
-	   
+	    <li><a href="#thailand" title="Next Section"></a></li>
+	   <li><a href="#sf" title="Next Section"></a></li>
 	</ul>
 	
 	<div id="intro" class="slide">
-		<div id="worldmap" class="worldmap" ></div>
+		
 		<div  class="story">
 		
-			<div  id="bigtitle"><h1>Something...</h1></div>
-			<div id="subtitle">Use keyboard ↓ and ↑ to scroll through this story and How about rotate that spinning globe,yeah?</div>
+			<div  class="bigtitle"><h1>Something...</h1></div>
+			<p>Use keyboard ↓ and ↑ to scroll through this story and How about rotate that spinning globe,yeah?</p>
 		 </div> <!-- .six columns -->
 		
 		</div> <!--.story-->
@@ -97,7 +98,14 @@ $(document).ready(function(){
 		
 		
 	</div> <!--#intro-->
+	<div id="world" class="slide">
+		<div  class="story">
+			<div class="bigtitle"><h1>World</h1></div>
+			<div id="subtitle">World is a common name for the whole of human civilization, specifically human experience, history, or the human condition in general, worldwide, i.e. anywhere on Earth.</div>
 	
+			<div id="worldmap" class="worldmap" ></div>
+		</div> <!--.story-->
+	</div> <!-- world -->
 
 	<div id="japan" class="slide">
 		
@@ -110,7 +118,7 @@ $(document).ready(function(){
 		<div  class="story">
 
 	    	<div class="six columns">
-			<!-- <span class="or-block animate-in" data-build="1" data-animation="fly-in-left"> --><h1>Japan</h1><!-- </span> -->
+			<!-- <span class="or-block animate-in" data-build="1" data-animation="fly-in-left"> --><div class="bigtitle"><h1>Japan</h1></div><!-- </span> -->
 	        <p >Japan i/dʒəˈpæn/ (Japanese: 日本 Nihon or Nippon; formally 日本国  Nippon-koku or Nihon-koku, literally "[the] State of Japan") is an island nation in East Asia. Located in the Pacific Ocean, it lies to the east of the Sea of Japan, China, North Korea, South Korea and Russia, stretching from the Sea of Okhotsk in the north to the East China Sea and Taiwan in the south. The characters that make up Japan's name mean "sun-origin", which is why Japan is sometimes referred to as the "Land of the Rising Sun".</p>
 	        </div>
 			
@@ -120,24 +128,21 @@ $(document).ready(function(){
 
 	</div> <!--#second-->
 	
-	<div id="third" class="slide">
+	<div id="thailand" class="slide">
 		  
 		<div class="story">
-			
+			<span class="or-block animate-in">
+			<div id="thailandmap" class="thailandmap" ></div>
+			</span>
 
 			 <div class="row">
 			<div class="six columns">
-				<span class="or-block animate-in">
-			<div id="thailandmap" class="thailandmap" ></div>
-			</span>
+				
 			</div>
 			   <div class="one columns"></div>
 	    	<div class="five columns">
-			<span class="or-block animate-in" data-build="1" data-animation="fly-in-left"><h1>Thailand</h1></span>
-	        <p class="or-block animate-in" data-build="2" data-animation="fly-in-right">Thailand ( /ˈtaɪlænd/ ty-land or /ˈtaɪlənd/ ty-lənd;[8] Thai: ประเทศไทย, RTGS: Prathet Thai), officially the Kingdom of Thailand (Thai: ราชอาณาจักรไทย, RTGS: Ratcha Anachak Thai; IPA: [râːt.tɕʰā ʔāːnāːtɕàk tʰāj] ( listen)), formerly known as Siam (Thai: สยาม; RTGS: Sayam), is a country located at the centre of the Indochina peninsula in Southeast Asia. It is bordered to the north by Burma and Laos, to the east by Laos and Cambodia, to the south by the Gulf of Thailand and Malaysia, and to the west by the Andaman Sea and the southern extremity of Burma. Its maritime boundaries include Vietnam in the Gulf of Thailand to the southeast, and Indonesia and India in the Andaman Sea to the southwest.
-The country is a constitutional monarchy, headed by King Rama IX, the ninth king of the House of Chakri, who, having reigned since 1946, is the world's longest-serving head of state and the longest-reigning monarch in Thai history.[9] The king of Thailand is titled Head of State, Head of the Armed Forces, the Upholder of the Buddhist religion, and the Defender of all Faiths.
-Thailand is the world's 51st-largest country in terms of total area, with an area of approximately 513,000 km2 (198,000 sq mi), and is the 20th-most-populous country, with around 64 million people. The capital and largest city is Bangkok, which is Thailand's political, commercial, industrial and cultural hub. About 75% of the population is ethnically Thai, 14% is of Chinese origin, and 3% is ethnically Malay;[1] the rest belong to minority groups including Mons, Khmers and various hill tribes. The country's official language is Thai. The primary religion is Buddhism, which is practiced by around 95% of the population.
-Thailand experienced rapid economic growth between 1985 and 1996, and is presently a newly industrialized country and a major exporter. Tourism also contributes significantly to the Thai economy.[10][11] There are approximately 2.2 million legal and illegal migrants in Thailand,[12] and the country has also attracted a number of expatriates from developed countries.[13]</p>
+			<span class="or-block animate-in" data-build="1" data-animation="fly-in-left"><div class="bigtitle"><h1>Thailand</h1></div></span>
+	        <p class="or-block animate-in" data-build="2" data-animation="fly-in-right">Thailand ( /ˈtaɪlænd/ ty-land or /ˈtaɪlənd/ ty-lənd;[8] Thai: ประเทศไทย, RTGS: Prathet Thai), officially the Kingdom of Thailand (Thai: ราชอาณาจักรไทย, RTGS: Ratcha Anachak Thai; IPA: [râːt.tɕʰā ʔāːnāːtɕàk tʰāj] ( listen)), formerly known as Siam (Thai: สยาม; RTGS: Sayam), is a country located at the centre of the Indochina peninsula in Southeast Asia. It is bordered to the north by Burma and Laos, to the east by Laos and Cambodia, to the south by the Gulf of Thailand and Malaysia, and to the west by the Andaman Sea and the southern extremity of Burma. Its maritime boundaries include Vietnam in the Gulf of Thailand to the southeast, and Indonesia and India in the Andaman Sea to the southwest.</p>
 	        </div>
 	     
 	         </div><!--#row-->
@@ -150,8 +155,17 @@ Thailand experienced rapid economic growth between 1985 and 1996, and is present
 		</div><!--#row--> -->
 	</div> <!--#third-->
 	
-	
-
+	<div id="sf" class="slide">
+		  
+		<div class="story">
+			<div class="row">
+			<div class="six columns"></div>
+			<div class="six columns"><div class="bigtitle"><h1>San Francisco</h1></div><p>San Francisco (/ˌsæn frənˈsɪskoʊ/), officially the City and County of San Francisco, is the leading financial and cultural center of Northern California and the San Francisco Bay Area.
+			</p></div>
+</div> <!-- row -->
+			<div id="sfmap" class="sfmap" ></div>
+		</div> <!--.story-->
+	</div> <!--#sf-->
 
  <script>
 
@@ -160,7 +174,7 @@ Thailand experienced rapid economic growth between 1985 and 1996, and is present
 var pinSriracha;
 
  var width = 900,
-    height = 800,
+    height = 1000,
     centered;
 
  	var svg = d3.select(".thailandmap").append("svg")
@@ -577,7 +591,132 @@ function tooltipName(text,pos){
 
 }
 
+function loadSFmap(){
 
+
+ var width = 900,
+    height = 1000,
+    centered;
+    var svg = d3.select(".sfmap").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+   
+
+  
+
+    var xym = d3.geo.albers();
+    var path = d3.geo.path().projection(xym);
+
+    xym.origin([-122.4183,37.7750])
+    xym.translate([500, 580])
+    xym.parallels([24.6, 43.6])
+    xym.scale(1000);
+
+   
+
+
+var provinceColor="#ddd";
+var mouseOverColor="red";
+
+		
+
+       d3.json("../us-counties.json", function(data) {
+
+        svg.selectAll("path").data(data.features)
+        .enter().append("path")
+        .attr("d", path)
+        .attr("class","city")
+        .attr("id",function(p){
+			return p.properties.name;
+        })
+        .style("fill", function(p) { 
+			if (p.properties.name=="San Francisco")
+				return mouseOverColor;
+			else
+        		return provinceColor 
+        })
+        .on("mouseover", function(e){
+        	d3.select(this).style("fill", mouseOverColor)
+			//console.log(d3.mouse(this));
+			var mousePos=d3.mouse(this);
+
+        	tooltipName(e.properties.name,mousePos);
+			tooltip.style("visibility", "visible");
+        })
+        .on("mouseout", function(e){
+
+        	d3.select(this).style("fill", e.properties.name=="San Francisco"?mouseOverColor:provinceColor)
+        	tooltip.style("visibility", "hidden");
+        })
+        .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");});
+       
+	
+      
+
+
+    svg.append("text")
+            .attr("class","alert-box alert")
+            .style("opacity",0)
+             .attr("transform", "translate(" + (xym(xym.origin())[0]+20) +"," + (xym(xym.origin())[1]+10) + ")")
+            .text("San Francisco")
+            .transition()
+            .duration(1000)
+            .delay(200)
+            .style("opacity",1);
+
+ 	svg.append("svg:image")
+            .attr("class","pin")
+            .attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-500) + ")")
+            .attr("width", 44)
+     		.attr("height", 44)
+            .attr("xlink:href", "images/pingoogle.png")
+            .transition()
+            .delay(0)
+            .duration(400)
+            .ease("sin")
+            .attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-30) + ")")
+            .each("end",animateLift);
+
+
+      });
+var tooltip;
+
+
+function tooltipName(text,pos){
+
+	tooltip = d3.select("body")
+	.append("div")
+	.attr("class","alert-box alert")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")
+	.text(text);
+}
+
+function animateDrop(){
+pinKanagawa=svg.selectAll(".pin");
+				pinKanagawa
+		 		.transition()
+		 		.delay(0)
+		 		.ease("linear")
+		 		.duration(450)
+ 				.attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-30) + ")")
+ 				.each("end",animateLift);
+}
+
+function animateLift(){
+pinKanagawa=svg.selectAll(".pin");
+		pinKanagawa
+		.transition()
+		.delay(0)
+		.ease("linear")
+		.duration(500)
+		.attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-40) + ")")
+		.each("end",animateDrop);
+
+}
+
+}
 
 
   </script>
