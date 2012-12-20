@@ -54,9 +54,9 @@ $(document).ready(function(){
 	//outerHeight (true/false) - Whether or not jQuery should use it's outerHeight option to determine when a section is in the viewport
 
 	$('#intro').parallax("50%", 0, 0.1, true);
-	$('#japan').parallax("50%", 200, 0.1, true);
-	
-	$('#third').parallax("50%", 2750, 0.3, true);
+	$('#world').parallax("50%", 200, 0.1, true);
+	$('#japan').parallax("50%", 700, 0.1, true);
+	$('#thailand').parallax("50%", 2750, 0.3, true);
 
 	var deck = new $.scrolldeck({
 		slides: '.slide',
@@ -64,14 +64,17 @@ $(document).ready(function(){
 		easing: 'easeInOutExpo'
 	});
 
-  $('#third').waypoint(function() {
+
+ 	loadWordMap();
+ 	renderJapanMap();
+	renderThailandMap();
+ 	loadSFmap();
+
+    $('#thailand').waypoint(function() {
  
-	//$("#thailandmap").attr("class","thailandmap fixed");
+	console.log("you hit thailand");
+	populateThailandDensity();
   });
-  loadWordMap();
-  renderJapanMap();
-  renderThailandMap();
-  loadSFmap();
 })
 </script>
 </head>
@@ -145,7 +148,8 @@ $(document).ready(function(){
 	    	<div class="five columns">
 			<span class="or-block animate-in" data-build="1" data-animation="fly-in-left"><div class="bigtitle"><h1>Thailand</h1></div></span>
 	        <p class="or-block animate-in" data-build="2" data-animation="fly-in-right">Thailand ( /ˈtaɪlænd/ ty-land or /ˈtaɪlənd/ ty-lənd;[8] Thai: ประเทศไทย, RTGS: Prathet Thai), officially the Kingdom of Thailand (Thai: ราชอาณาจักรไทย, RTGS: Ratcha Anachak Thai; IPA: [râːt.tɕʰā ʔāːnāːtɕàk tʰāj] ( listen)), formerly known as Siam (Thai: สยาม; RTGS: Sayam), is a country located at the centre of the Indochina peninsula in Southeast Asia. It is bordered to the north by Burma and Laos, to the east by Laos and Cambodia, to the south by the Gulf of Thailand and Malaysia, and to the west by the Andaman Sea and the southern extremity of Burma. Its maritime boundaries include Vietnam in the Gulf of Thailand to the southeast, and Indonesia and India in the Andaman Sea to the southwest.</p>
-	        <p>Data from http://maps.worldbank.org/overlays/4242</p>
+	        <p>Population per sqkm.</p>
+	        <p>Data from <a href="http://maps.worldbank.org/overlays/4242" target="_blank">Worldbank.org</a></p>
 	        </div>
 	     
 	         </div><!--#row-->
@@ -162,17 +166,21 @@ $(document).ready(function(){
 		  
 		<div class="story">
 			<div class="row">
-			<div class="five columns"></div>
-			<div class="seven columns"><div class="bigtitle"><h1>San Francisco,CA</h1></div><p>San Francisco (/ˌsæn frənˈsɪskoʊ/), officially the City and County of San Francisco, is the leading financial and cultural center of Northern California and the San Francisco Bay Area.
-			</p></div>
+			<div class="four columns"></div>
+			<div class="eight columns"><span class="or-block animate-in" data-build="1" data-animation="fly-in-left"><div class="bigtitle"><h1>United States</h1></div></span>
+			<span class="or-block animate-in" data-build="2"><p>The United States of America (commonly called the United States, the U.S., the USA, America, and the States) is a federal constitutional republic consisting of fifty states and a federal district.
+			</p></span>
+		</div>
 </div> <!-- row -->
-			<div id="sfmap" class="sfmap" ></div>
+			<span class="or-block animate-in" data-build="3"><div id="sfmap" class="sfmap" ></div></span>
 		</div> <!--.story-->
 	</div> <!--#sf-->
 
  <script>
 
- function renderThailandMap(){
+
+
+function renderThailandMap(){
 
 var pinSriracha;
 
@@ -184,7 +192,7 @@ var pinSriracha;
     .attr("width", width)
     .attr("height", height);
     //.attr("id", "thailand");
-  var thailandxym = d3.geo.albers();
+  	var thailandxym = d3.geo.albers();
     var thailandpath = d3.geo.path().projection(thailandxym);
 
     thailandxym.origin([100.931293,13.191816])
@@ -192,85 +200,75 @@ var pinSriracha;
     thailandxym.parallels([24.6, 43.6])
     thailandxym.scale(3000);
 
-var provinceColor="#ddd";
-var mouseOverColor="#0B4199";
-var tooltip;
+	var provinceColor="#ddd";
+	var mouseOverColor="#0B4199";
+	var tooltip;
 
 
-function tooltipName(text,pos){
+	function tooltipName(text,pos){
 
-	tooltip = d3.select("body")
-	.append("div")
-	.attr("class","alert-box")
-	.style("position", "absolute")
-	.style("z-index", "10")
-	.style("visibility", "hidden")
-	.text(text);
-}
+		tooltip = d3.select("body")
+		.append("div")
+		.attr("class","alert-box")
+		.style("position", "absolute")
+		.style("z-index", "10")
+		.style("visibility", "hidden")
+		.text(text);
+	}
 
 
-function animateDrop(){
-pinSriracha=svg.selectAll(".pinSriracha");
-				pinSriracha
-		 		.transition()
-		 		.delay(0)
-		 		.ease("linear")
-		 		.duration(450)
- 				.attr("transform", "translate(" + (thailandxym(thailandxym.origin())[0]-22) +"," + (thailandxym(thailandxym.origin())[1]-30) + ")")
- 				.each("end",animateLift);
-}
+	function animateDrop(){
+	pinSriracha=svg.selectAll(".pinSriracha");
+					pinSriracha
+			 		.transition()
+			 		.delay(0)
+			 		.ease("linear")
+			 		.duration(450)
+	 				.attr("transform", "translate(" + (thailandxym(thailandxym.origin())[0]-22) +"," + (thailandxym(thailandxym.origin())[1]-30) + ")")
+	 				.each("end",animateLift);
+	}
 
-function animateLift(){
-pinSriracha=svg.selectAll(".pinSriracha");
-		pinSriracha
-		.transition()
-		.delay(0)
-		.ease("linear")
-		.duration(500)
-		.attr("transform", "translate(" + (thailandxym(thailandxym.origin())[0]-22) +"," + (thailandxym(thailandxym.origin())[1]-40) + ")")
-		.each("end",animateDrop);
+	function animateLift(){
+	pinSriracha=svg.selectAll(".pinSriracha");
+			pinSriracha
+			.transition()
+			.delay(0)
+			.ease("linear")
+			.duration(500)
+			.attr("transform", "translate(" + (thailandxym(thailandxym.origin())[0]-22) +"," + (thailandxym(thailandxym.origin())[1]-40) + ")")
+			.each("end",animateDrop);
 
-}
-function getColor(d) {
-    return d > 1000 ? 'rgb(8,48,107)' :
-           d > 500  ? 'rgb(8,81,156)' :
-           d > 200  ? 'rgb(33,113,181)' :
-           d > 100  ? 'rgb(66,146,198)' :
-           d > 50   ? 'rgb(107,174,214)' :
-           d > 20   ? 'rgb(158,202,225)' :
-           d > 10   ? 'rgb(198,219,239)' :
-                      'rgb(222,235,247)';
-};
- d3.json("../thailandwithdensity.json", function(data) {
+	}
+	
+ 	d3.json("../thailandwithdensity.json", function(data) {
 
 
         svg.selectAll("path").data(data.features)
         .enter().append("path")
         .attr("d", thailandpath)
         .attr("class","province")
+        .attr("density",function(p){return p.properties.p})
         .attr("id",function(p){
-			return p.properties.name.toLowerCase();
+			return p.properties.name.replace(" ","");
         })
 		.style("fill", function(p) { 
+			//I am going to fill the color when user scrolls to Thailand slide .
+			//console.log(p.properties.p);
+			//return getColor(p.properties.p);
 
-			console.log(p.properties.p);
-			return getColor(p.properties.p);
-
-			if (p.properties.name.toLowerCase()=="ChonBuri".toLowerCase())
-				return mouseOverColor;
-			else
+			// if (p.properties.name.toLowerCase()=="ChonBuri".toLowerCase())
+			// 	return mouseOverColor;
+			// else
         		return provinceColor 
 
 
         })
         .on("mouseover", function(e){
-        
-
         	//d3.select(this).style("fill", mouseOverColor)
 			//console.log(d3.mouse(this));
 			var mousePos=d3.mouse(this);
 
-        	tooltipName(e.properties.name,mousePos);
+        	tooltipName(e.properties.name + "\n" + e.properties.p,mousePos);
 			tooltip.style("visibility", "visible");
 		
         })
@@ -294,26 +292,37 @@ function getColor(d) {
             .duration(400)
             .ease("sin")
             .attr("transform", "translate(" + (thailandxym(thailandxym.origin())[0]-22) +"," + (thailandxym(thailandxym.origin())[1]-30) + ")")
-            .each("end",animateLift);
+        .each("end",animateLift);
 
-
-		// d3.csv("../thailandpopulation.csv", function(csv) {
-  //     	   csv = csv.filter(function(row) {
-      	   	
-  //     	   	var province= row["Adm1"].replace(" ","").toLowerCase();
-  //     	   	console.log(row["PopDensity"] + " " +province);
-  //     	   	d3.select("#"+province ).style("fill","#FFCC00");
-  //     	   });
-   			 
-  //       });
-
- });
+ 	});
 		 
 
 
 
 
+
  }
+	
+ 	function populateThailandDensity(){
+
+ 		function getColor(d) {
+	    return d > 1000 ? 'rgb(8,48,107)' :
+	           d > 500  ? 'rgb(8,81,156)' :
+	           d > 200  ? 'rgb(33,113,181)' :
+	           d > 100  ? 'rgb(66,146,198)' :
+	           d > 50   ? 'rgb(107,174,214)' :
+	           d > 20   ? 'rgb(158,202,225)' :
+	           d > 10   ? 'rgb(198,219,239)' :
+	                      'rgb(222,235,247)';
+		}	
+		
+      	   	var svg = d3.select(".thailandmap").select("svg")
+      	   	.selectAll("path").transition().delay( function( d, i ) { return 50 * i; } ).style("fill",function(p){
+
+      	   			var density =d3.select(this).attr("density");
+      	   			return getColor(density);
+      	   	});
+	};
 
 function renderJapanMap(){
 
@@ -520,28 +529,7 @@ var scale = {
 	startAnimation();	
 });
 
-var tourList=[];
-var sf =[-122.4183,37.7750];	
-var jp=[139.334468,35.580826];
-tourList.push(sf);
-tourList.push(jp);
-var tourIndex=0;
-// var tour =function(){
 
-// 	d3.transition().duration(1).delay(1000).each("start",function(){
-
-
-// 	 //o0 =projection.origin(tourList[tourIndex]);
-//   //  circle.origin(tourList[tourIndex]);
-//    /// refresh();
-  
-//     tourIndex++;
-//     if (tourIndex==tourList.length)
-//     	tourIndex=0;
-//     console.log(tourIndex);
-// 	})
-// 	.transition().each("end",tour);
-// };
 
 
 function startAnimation() {
@@ -622,127 +610,135 @@ function tooltipName(text,pos){
 function loadSFmap(){
 
 
- var width = 900,
+ var width = 1400,
     height = 1000,
     centered;
-    var svg = d3.select(".sfmap").append("svg")
+
+    var svg = d3.select("#sfmap").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+   
+
+ 
+    var projection = d3.geo.albers().scale(width)
+    .translate([-100, 100]);
+
+    projection.origin([-122.4183,37.7750])
+    projection.scale(900);
+
+    var path = d3.geo.path().projection(projection);
+
+   
+
+   
+
+
+	var provinceColor="#ddd";
+	var mouseOverColor="red";
+
+	svg.append("rect")
+    .attr("class", "background")
+    .style("fill","transparent")
     .attr("width", width)
     .attr("height", height)
-   
+    .on("click", click);
 
-  
-
-    var xym = d3.geo.albers();
-    var path = d3.geo.path().projection(xym);
-
-    xym.origin([-122.4183,37.7750])
-    xym.translate([500, 580])
-    xym.parallels([24.6, 43.6])
-    xym.scale(1000);
-
-   
+	var g = svg.append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+  	.append("g")
+    .attr("id", "states");
 
 
-var provinceColor="#ddd";
-var mouseOverColor="red";
+    d3.json("../us-counties.json", function(data) {
 
-		
-
-       d3.json("../us-counties.json", function(data) {
-
-        svg.selectAll("path").data(data.features)
+        g.selectAll("path").data(data.features)
         .enter().append("path")
         .attr("d", path)
-        .attr("class","city")
-        .attr("id",function(p){
-			return p.properties.name;
-        })
         .style("fill", function(p) { 
-			if (p.properties.name=="San Francisco")
-				return mouseOverColor;
-			else
         		return provinceColor 
         })
         .on("mouseover", function(e){
         	d3.select(this).style("fill", mouseOverColor)
-			//console.log(d3.mouse(this));
 			var mousePos=d3.mouse(this);
-
         	tooltipName(e.properties.name,mousePos);
 			tooltip.style("visibility", "visible");
         })
         .on("mouseout", function(e){
-
-        	d3.select(this).style("fill", e.properties.name=="San Francisco"?mouseOverColor:provinceColor)
+        	d3.select(this).style("fill", provinceColor);
         	tooltip.style("visibility", "hidden");
         })
-        .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");});
+        .on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+        .on("click", click); //when click on path call click;
        
 	
       
 
 
-    svg.append("text")
-            .attr("class","alert-box alert")
-            .style("opacity",0)
-             .attr("transform", "translate(" + (xym(xym.origin())[0]+20) +"," + (xym(xym.origin())[1]+10) + ")")
-            .text("San Francisco")
-            .transition()
-            .duration(1000)
-            .delay(200)
-            .style("opacity",1);
+  //   svg.append("text")
+  //           .attr("class","alert-box alert")
+  //           .style("opacity",0)
+  //            .attr("transform", "translate(" + (projection(projection.origin())[0]+20) +"," + (projection(projection.origin())[1]+10) + ")")
+  //           .text("San Francisco")
+  //           .transition()
+  //           .duration(1000)
+  //           .delay(200)
+  //           .style("opacity",1);
 
- 	svg.append("svg:image")
-            .attr("class","pin")
-            .attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-500) + ")")
-            .attr("width", 44)
-     		.attr("height", 44)
-            .attr("xlink:href", "images/pingoogle.png")
-            .transition()
-            .delay(0)
-            .duration(400)
-            .ease("sin")
-            .attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-30) + ")")
-            .each("end",animateLift);
-
-
-      });
-var tooltip;
+ 	// svg.append("svg:image")
+  //           .attr("class","pin")
+  //           .attr("transform", "translate(" + (projection(projection.origin())[0]-22) +"," + (projection(projection.origin())[1]-500) + ")")
+  //           .attr("width", 44)
+  //    		.attr("height", 44)
+  //           .attr("xlink:href", "images/pingoogle.png")
+  //           .transition()
+  //           .delay(0)
+  //           .duration(400)
+  //           .ease("sin")
+  //           .attr("transform", "translate(" + (projection(projection.origin())[0]-22) +"," + (projection(projection.origin())[1]-30) + ")")
+  //           .each("end",animateLift);
 
 
-function tooltipName(text,pos){
+    });
+	
+	function click(d) {
+	
+	  var x = 0,
+	      y = 0,
+	      k = 1;
 
-	tooltip = d3.select("body")
-	.append("div")
-	.attr("class","alert-box alert")
-	.style("position", "absolute")
-	.style("z-index", "10")
-	.style("visibility", "hidden")
-	.text(text);
-}
+	  if (d && centered !== d) {
+	    var centroid = path.centroid(d);
+	    x = -centroid[0];
+	    y = -centroid[1];
+	    k = 4;
+	    centered = d;
+	  } else {
+	    centered = null;
+	  }
+		
 
-function animateDrop(){
-pinKanagawa=svg.selectAll(".pin");
-				pinKanagawa
-		 		.transition()
-		 		.delay(0)
-		 		.ease("linear")
-		 		.duration(450)
- 				.attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-30) + ")")
- 				.each("end",animateLift);
-}
+	  g.selectAll("path")
+	      .classed("active", centered && function(d) { return d === centered; });
+		
+	  g.transition()
+	      .duration(1000)
+	      .attr("transform", "scale(" + k + ")translate(" + x + "," + y + ")")
+	      .style("stroke-width", 1 / k + "px");
 
-function animateLift(){
-pinKanagawa=svg.selectAll(".pin");
-		pinKanagawa
-		.transition()
-		.delay(0)
-		.ease("linear")
-		.duration(500)
-		.attr("transform", "translate(" + (xym(xym.origin())[0]-22) +"," + (xym(xym.origin())[1]-40) + ")")
-		.each("end",animateDrop);
+	}
 
-}
+	var tooltip;
+	function tooltipName(text,pos){
+
+		tooltip = d3.select("body")
+		.append("div")
+		.attr("class","alert-box alert")
+		.style("position", "absolute")
+		.style("z-index", "10")
+		.style("visibility", "hidden")
+		.text(text);
+	}
+	
 
 }
 

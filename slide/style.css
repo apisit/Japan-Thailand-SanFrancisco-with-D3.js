@@ -30,7 +30,9 @@ p{
 font-size: 1.25em;
 
 }
-
+span{
+	font-size: 1em;
+}
 
 h1{
 	font: inherit;
@@ -81,7 +83,7 @@ font-size: 2em;
 }
 
 #world{
-
+/*background:url(../assets/cloud.jpg) fixed no-repeat;*/
 	height: 800px;
 	margin: 0 auto;
 	padding: 0 0 0 0;
@@ -205,6 +207,8 @@ padding-top: 100px;
 #sfmap{
 position: absolute;
 top: 0px;
+left: 0px;
+
 }
 .fixed{
 	position: fixed;
@@ -220,5 +224,19 @@ top: 0px;
 	position: absolute;
 	opacity: 1;
 	text-shadow: none;
+}
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+#states {
+  fill: #aaa;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+#states .active {
+  fill: steelblue;
 }
 
